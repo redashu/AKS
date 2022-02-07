@@ -97,3 +97,20 @@ Client Version: version.Info{Major:"1", Minor:"22
 
 <img src="etcd.png">
 
+### manage vs unmanaged k8s cluster
+
+<img src="k8setup.png">
+
+### azure k8s access
+
+<img src="aks.png">
+
+### any app deployment process in aks 
+
+<img src="akss.png">
+
+### from container image to running container journey 
+
+<img src="cont22.png">
+
+
