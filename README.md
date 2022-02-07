@@ -53,3 +53,47 @@ d9c295f968d6   ponwebapp:v1    "/docker-entrypoint.…"   34 minutes ago   Up 34
 
 <img src="aks.png">
 
+### Container runtime Engine problems --
+
+<img src="creprob.png">
+
+### k8s 
+
+<img src="k8s.png">
+
+### intro 
+
+<img src="k8sintro.png">
+
+### hardware arch 
+
+<img src="infra.png">
+
+### k8s Minion Side --
+
+<img src="min1.png">
+
+### Kube-apiserver 
+
+<img src="apiserver.png">
+
+### k8s client side software 
+
+<img src="k8scli.png">
+
+### checking --
+
+```
+kubectl  version --client 
+Client Version: version.Info{Major:"1", Minor:"22
+
+```
+
+### kube-schedular --
+
+<img src="ksch.png">
+
+### etcd 
+
+<img src="etcd.png">
+
