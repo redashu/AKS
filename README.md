@@ -28,3 +28,28 @@
 
 <img src="process.png">
 
+### image build done 
+
+```
+docker build -t ashuwebapp:v1 . 
+
+```
+
+### creating container --
+
+```
+docker  run  -d  --name  ashuc1  -p  1234:80  ashuwebapp:v1  
+90b6d9c8914c56b10bc12bb349536ed0c9ab2717fb82359974f2c439442bf363
+[test@ip-172-31-84-215 data]$ 
+[test@ip-172-31-84-215 data]$ 
+[test@ip-172-31-84-215 data]$ docker  ps
+CONTAINER ID   IMAGE           COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+90b6d9c8914c   ashuwebapp:v1   "/docker-entrypoint.…"   3 seconds ago    Up 2 seconds    0.0.0.0:1234->80/tcp, :::1234->80/tcp   ashuc1
+d9c295f968d6   ponwebapp:v1    "/docker-entrypoint.…"   34 minutes ago   Up 34 minutes   0.0.0.0:80->80/tcp, :::80->80/tcp       elated_chandrasekhar
+
+```
+
+### getting started with AKS 
+
+<img src="aks.png">
+
