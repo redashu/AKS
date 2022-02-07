@@ -12,3 +12,11 @@
 
 <img src="vm1.png">
 
+### OS components 
+
+<img src="os.png">
+
+### vm vs cre 
+
+<img src="cre.png">
+
