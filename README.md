@@ -20,3 +20,11 @@
 
 <img src="cre.png">
 
+### app containerization process -- BUild -- RUN -- 
+
+<img src="cont1.png">
+
+### image building process 
+
+<img src="process.png">
+
