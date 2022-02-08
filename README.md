@@ -497,3 +497,87 @@ ashusvc1   LoadBalancer   10.0.47.10   13.71.55.49   1234:32395/TCP   115s
 
 ```
 
+## Storage in k8s 
+
+<img src="st.png">
+
+### k8s volume section 
+
+<img src="volume.png">
+
+### generating pod with random data generation 
+
+```
+ kubectl  run  randomdata   --image=alpine  --dry-run=client -o yaml  >randomdata.yaml 
+```
+
+### deploy pod 
+
+<img src="podep.png">
+
+### checking container data 
+
+```
+kubectl get po
+NAME         READY   STATUS    RESTARTS   AGE
+randomdata   1/1     Running   0          90s
+fire@ashutoshhs-MacBook-Air yamls % kubectl  exec -it  randomdata  -- sh 
+/ # cat /etc/os-release 
+NAME="Alpine Linux"
+ID=alpine
+VERSION_ID=3.15.0
+PRETTY_NAME="Alpine Linux v3.15"
+HOME_URL="https://alpinelinux.org/"
+BUG_REPORT_URL="https://bugs.alpinelinux.org/"
+/ # 
+/ # cd  /mnt/
+/mnt # ls
+time.txt
+/mnt # cat  time.txt 
+Tue Feb  8 11:24:25 UTC 2022
+Tue Feb  8 11:24:35 UTC 2022
+Tue Feb  8 11:24:45 UTC 2022
+Tue Feb  8 11:24:55 UTC 2022
+Tue Feb  8 11:25:05 UTC 2022
+Tue Feb  8 11:25:15 UTC 2022
+Tue Feb  8 11:25:25 UTC 2022
+Tue Feb  8 11:25:35 UTC 2022
+Tue Feb  8 11:25:45 UTC 2022
+Tue Feb  8 11:25:55 UTC 2022
+Tue Feb  8 11:26:05 UTC 2022
+
+```
+
+### data damaged 
+
+```
+% kubectl delete  pod randomdata
+pod "randomdata" deleted
+fire@ashutoshhs-MacBook-Air yamls % kubectl  get  po              
+No resources found in ashu-webappsonly namespace.
+fire@ashutoshhs-MacBook-Air yamls % kubectl apply -f randomdata.yaml 
+pod/randomdata created
+fire@ashutoshhs-MacBook-Air yamls % kubectl  exec -it  randomdata  -- sh 
+/ # cd /mnt/
+/mnt # ls
+time.txt
+/mnt # wc  -l time.txt 
+2 time.txt
+/mnt # exit
+
+```
+
+### using k8s cluster based local storage 
+
+<img src="localst.png">
+
+### volume sources and pod 
+
+<img src="volsrc.png">
+
+## PV and PVC 
+
+<img src="pv.png">
+
+
+
