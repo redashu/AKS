@@ -324,4 +324,54 @@ pod "ashupod1" deleted
 
 
 ```
+### settting default namespace in client side system 
+
+```
+ kubectl  config  set-context  --current --namespace=ashu-webappsonly
+```
+
+### webapp deployment in aks using pod under custom namespaces --
+
+```
+ kubectl  run  ashuwebapp --image=dockerashu/ashuwebapp:pwcfeb82022  --port=80   --dry-run=client  -o yaml  
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: ashuwebapp
+  name: ashuwebapp
+spec:
+  containers:
+  - image: dockerashu/ashuwebapp:pwcfeb82022
+    name: ashuwebapp
+    ports:
+    - containerPort: 80
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+fire@ashutoshhs-MacBook-Air yamls % kubectl  run  ashuwebapp --image=dockerashu/ashuwebapp:pwcfeb82022  --port=80   --dry-run=client  -o yaml   >mywebapp.yaml
+
+```
+
+### deploy and check 
+
+```
+% ls
+autopod.yaml    check.yaml      mywebapp.yaml   pod1.yaml
+fire@ashutoshhs-MacBook-Air yamls % kubectl apply -f  mywebapp.yaml 
+pod/ashuwebapp created
+fire@ashutoshhs-MacBook-Air yamls % kubectl  get  pods
+NAME         READY   STATUS    RESTARTS   AGE
+ashuwebapp   1/1     Running   0          6s
+fire@ashutoshhs-MacBook-Air yamls % kubectl  get  pods -o wide
+NAME         READY   STATUS    RESTARTS   AGE   IP            NODE                                NOMINATED NODE   READINESS GATES
+ashuwebapp   1/1     Running   0          11s   10.244.0.11   aks-agentpool-40604622-vmss000002   <none>           <none>
+
+```
+
+## Networking in k8s
+
+<img src="k8snet.png">
 
