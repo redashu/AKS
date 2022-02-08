@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: randomdata
+  name: randomdata # name of pod 
+spec:
+  volumes: # to create any type of volume during pod creation time 
+  - name: ashuvol1 
+    hostPath: # from Minion Node we are taking storage 
+     path: /tmp/ashudata # this location to store my POd data 
+     type: DirectoryOrCreate # check if not present then create it on Minion node
+  containers:
+  - image: alpine # image from docker hub 
+    name: randomdata # name of container 
+    command: ["sh","-c","while true;do date >>/mnt/data/time.txt;sleep 10;done"]
+    volumeMounts: # using volume inside container  
+    - name: ashuvol1
+      mountPath: /mnt/data  # location inside container 
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
