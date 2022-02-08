@@ -67,3 +67,42 @@ pwcfeb82022: digest: sha256:a89ffb268e2ce632c29508ec8ffcbb4dd27ea982ec03c63e8fac
 Removing login credentials for https://index.docker.io/v1/
 
 ```
+
+### smallest unit in k8s is POD 
+
+<img src="pod.png">
+
+### Deploy my first POD 
+
+```
+ashutoshh@Azure:~$ whoami
+ashutoshh
+ashutoshh@Azure:~$ pwd
+/home/ashutoshh
+ashutoshh@Azure:~$ mkdir  ashu_yamls
+ashutoshh@Azure:~$ cd ashu_yamls/
+ashutoshh@Azure:~/ashu_yamls$
+ashutoshh@Azure:~/ashu_yamls$ vim  ashupod1.yaml
+ashutoshh@Azure:~/ashu_yamls$ vim  ashupod1.yaml
+ashutoshh@Azure:~/ashu_yamls$ cat ashupod1.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+ name: ashupod-123  # name of pod
+spec: # appinfo like container / storage / schedular
+ containers:
+ - image: docker.io/dockerashu/ashuwebapp:pwcfeb82022
+   name: ashuc1 # you can use same container name
+   ports: # optional part these days
+   - containerPort: 80
+ashutoshh@Azure:~/ashu_yamls$ kubectl  apply -f ashupod1.yaml
+pod/ashupod-123 created
+ashutoshh@Azure:~/ashu_yamls$ kubectl  get pods
+NAME          READY   STATUS              RESTARTS   AGE
+ashupod-123   0/1     ContainerCreating   0          15s
+ashutoshh@Azure:~/ashu_yamls$ kubectl  get pods
+NAME          READY   STATUS    RESTARTS   AGE
+ashupod-123   1/1     Running   0          34s
+
+```
+
