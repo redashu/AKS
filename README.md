@@ -375,3 +375,125 @@ ashuwebapp   1/1     Running   0          11s   10.244.0.11   aks-agentpool-4060
 
 <img src="k8snet.png">
 
+## Networking for containers 
+
+<img src="cnet.png">
+
+### list of k8s CNI plugins 
+
+<img src="cni.png">
+
+###  CNI bridge based communicaiton 
+
+```
+ 1004  kubectl  run pod1  --image=alpine --command ping localhost 
+ 1005  kubectl  run pod2  --image=alpine --command ping localhost 
+ 1006  kubectl  get  po -o wide
+ 1007  kubectl  get  po -o wide
+ 1008  kubectl  exec -it pod1  -- sh 
+ 1009  history
+ 1010  kubectl  run pod3 --namespace=default   --image=alpine --command ping localhost 
+ 1011  kubectl  get  po -o wide
+ 1012  kubectl  get  po -o wide -n default
+ 1013  kubectl  exec -it pod1  -- sh 
+
+
+```
+
+### from kubectl client machine Minion node tunnel 
+
+```
+kubectl  port-forward  ashuwebapp  1234:80 
+Forwarding from 127.0.0.1:1234 -> 80
+Forwarding from [::1]:1234 -> 80
+Handling connection for 1234
+Handling connection for 1234
+Handling connection for 1234
+Handling connection for 1234
+Handling connection for 1234
+
+```
+
+### any end user access app running in the POD --
+
+### network flow 
+
+### Azure Internal LB (indepent of k8s)
+
+<img src="azlb.png">
+
+### Internal LB concept 
+
+<img src="lb.png">
+
+## Intro to service --
+
+<img src="svc.png">
+
+### service type 
+
+<img src="svctype.png">
+
+### creating service 
+
+```
+ kubectl  get  pods         
+NAME         READY   STATUS    RESTARTS   AGE
+ashuwebapp   1/1     Running   0          47m
+fire@ashutoshhs-MacBook-Air yamls % 
+fire@ashutoshhs-MacBook-Air yamls % 
+fire@ashutoshhs-MacBook-Air yamls % kubectl  get  service 
+No resources found in ashu-webappsonly namespace.
+fire@ashutoshhs-MacBook-Air yamls % kubectl  create  service  
+Create a service using a specified subcommand.
+
+Aliases:
+service, svc
+
+Available Commands:
+  clusterip    Create a ClusterIP service
+  externalname Create an ExternalName service
+  loadbalancer Create a LoadBalancer service
+  nodeport     Create a NodePort service
+
+```
+### creating service 
+
+```
+kubectl  expose  pod  ashuwebapp  --type LoadBalancer  --port 1234  --target-port 80 --name   ashusvc1   --dry-run=client -o yaml 
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    run: ashuwebapp
+  name: ashusvc1
+spec:
+  ports:
+  - port: 1234
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: ashuwebapp
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+```
+
+### Deploy svc 
+
+```
+ % kubectl  apply -f  myappsvc.yaml 
+service/ashusvc1 created
+fire@ashutoshhs-MacBook-Air yamls % kubectl  get  service 
+NAME       TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE
+ashusvc1   LoadBalancer   10.0.47.10   <pending>     1234:32395/TCP   8s
+fire@ashutoshhs-MacBook-Air yamls % kubectl  get  svc     
+NAME       TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE
+ashusvc1   LoadBalancer   10.0.47.10   <pending>     1234:32395/TCP   12s
+fire@ashutoshhs-MacBook-Air yamls % kubectl  get  svc
+NAME       TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE
+ashusvc1   LoadBalancer   10.0.47.10   13.71.55.49   1234:32395/TCP   115s
+
+```
+
