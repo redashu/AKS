@@ -372,4 +372,37 @@ exit
 
 <img src="pattern.png">
 
+### access multi container 
+```
+ kubectl  get  po 
+NAME                      READY   STATUS    RESTARTS   AGE
+ashudb-5dbd54fc54-c8p82   1/1     Running   0          63m
+datagen                   2/2     Running   0          6s
+fire@ashutoshhs-MacBook-Air yamls % kubectl  exec -it  datagen -- bash       
+Defaulted container "sidecar" out of: sidecar, datagen
+root@datagen:/# cd  /usr/share/nginx/html/
+root@datagen:/usr/share/nginx/html# ls
+a.txt
+root@datagen:/usr/share/nginx/html# rm  a.txt 
+rm: cannot remove 'a.txt': Read-only file system
+root@datagen:/usr/share/nginx/html# exit 
+exit
+command terminated with exit code 1
+fire@ashutoshhs-MacBook-Air yamls % kubectl  exec -it  datagen -c  datagen -- sh   
+/ # 
+/ # 
+/ # cd  /mnt/data/
+/mnt/data # ls
+a.txt
+/mnt/data # cat a.txt 
+i am data generator
+i am data generator
+i am data generator
+i am data generator
+i am data generator
+/mnt/data # exit
+fire@ashutoshhs-MacBook-Air yamls % 
+```
+
+
 
