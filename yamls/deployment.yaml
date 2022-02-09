@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ashudep
+  name: ashudep # name of deployment  
+  namespace: ashu-space # namespace info 
+spec:
+  replicas: 1 # number of pod we want initially 
+  selector:
+    matchLabels:
+      app: ashudep
+  strategy: {}
+  template: # use this to create pods 
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ashudep
+    spec:
+      containers:
+      - image: dockerashu/ashuwebapp:pwcfeb82022
+        name: ashuwebapp
+        ports:
+        - containerPort: 80
+        resources: # limiting request and max limit 
+         requests:
+          memory: 300m # MiB  
+          cpu: 200m # milicore --  1 core / 1 vcpu == 1000 Mili core 
+         limits:
+          memory: 800m 
+          cpu: 500m 
+status: {}

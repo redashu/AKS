@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: ashupod-123444 # name of pod 
+ namespace: ashu-webappsonly  # namespace info 
+spec:
+ containers:
+ - image: alpine # image from docker hub 
+   name: ashuc1 # name of container 
+   command: ["sh","-c","ping localhost"] # process to run inside container 
