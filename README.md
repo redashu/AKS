@@ -403,6 +403,10 @@ i am data generator
 /mnt/data # exit
 fire@ashutoshhs-MacBook-Air yamls % 
 ```
+### Ingress controller 
+
+<img src="ingress.png">
+
 
 
 
