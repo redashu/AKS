@@ -315,5 +315,61 @@ NAME                      READY   STATUS    RESTARTS   AGE
 ashudb-5dbd54fc54-c8p82   1/1     Running   0          42s
 
 ```
+### access db container /pod 
+
+```
+ kubectl exec  -it   ashudb-5dbd54fc54-c8p82 -- bash 
+root@ashudb-5dbd54fc54-c8p82:/# cat  /etc/os-release 
+PRETTY_NAME="Debian GNU/Linux 10 (buster)"
+NAME="Debian GNU/Linux"
+VERSION_ID="10"
+VERSION="10 (buster)"
+VERSION_CODENAME=buster
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+root@ashudb-5dbd54fc54-c8p82:/# mysql  -u root  -p 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> create  database pwc;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> exit;
+Bye
+root@ashudb-5dbd54fc54-c8p82:/# exit
+exit
+
+```
+
+### Db with webapp understanding 
+
+<img src="dbwebapp.png">
+
+### pod design pattern in k8s
+
+<img src="pattern.png">
 
 
