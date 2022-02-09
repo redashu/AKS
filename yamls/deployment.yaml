@@ -25,9 +25,9 @@ spec:
         - containerPort: 80
         resources: # limiting request and max limit 
          requests:
-          memory: 300m # MiB  
+          memory: 500M # MiB  
           cpu: 200m # milicore --  1 core / 1 vcpu == 1000 Mili core 
          limits:
-          memory: 800m 
+          memory: 900M 
           cpu: 500m 
 status: {}

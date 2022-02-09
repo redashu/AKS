@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+ name: ashupv-1
+spec: 
+ capacity: # from source storge how much you want 
+  storage: 5Gi # you can choose 
+ volumeMode: Filesystem
+ accessModes: 
+ - ReadWriteOnce 
+ hostPath: # taking space local storage 
+  path: /mnt/ashudata
+  type: DirectoryOrCreate 
+ storageClassName: manual # later will discuss 
+
+# pvc is namespace dependent 
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ashu-pvc-db
+  namespace: ashu-space 
+spec: 
+ storageClassName: manual 
+ accessModes:
+ - ReadWriteOnce
+ resources:
+  requests:
+   storage: 5Gi
+
+# creating  deployment for mysql DB /mssql 
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ashudb
+  name: ashudb # name of deployment 
+spec:
+  replicas: 1 # single db instance 
+  selector:
+    matchLabels:
+      app: ashudb
+  strategy: {}
+  template: # for pod creation 
+    metadata:
+      creationTimestamp: null
+      labels: # label of pod which will be used by service 
+        app: ashudb
+    spec:
+      volumes: # for creating volume during pod deployment 
+      - name: ashudbvol # name of volume 
+        persistentVolumeClaim: # source is PVC 
+         claimName: ashu-pvc-db
+      containers:
+      - image: mysql
+        name: mysql
+        ports:
+        - containerPort: 3306
+        volumeMounts: # mounting volume inside container 
+        - name: ashudbvol # name of volume 
+          mountPath: /var/lib/mysql/ # default location by mysql container
+        env: # create of call env variable 
+        - name: MYSQL_ROOT_PASSWORD # predefine env var from mysql image 
+          valueFrom: # calling password data from secret 
+           secretKeyRef:
+            name: ashudbsec # name of secret 
+            key: key123 # key of secret 
+        resources: {}
+status: {}
+
+# creating secret 
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: ashudbsec
+data:
+  key123: UHdjRGIwOTg=

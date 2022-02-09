@@ -2,8 +2,9 @@ apiVersion: v1
 kind: Pod
 metadata:
  name: ashupod-123444 # name of pod 
- namespace: ashu-webappsonly  # namespace info 
+ 
 spec:
+ nodeName: aks-agentpool-25714751-vmss000002 # static scheduling 
  containers:
  - image: alpine # image from docker hub 
    name: ashuc1 # name of container 

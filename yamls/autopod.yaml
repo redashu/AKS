@@ -2,8 +2,8 @@ apiVersion: v1
 kind: Pod
 metadata:
   creationTimestamp: null
-  labels:
-    run: ashupod1
+  labels: # label of pod 
+    x: helloashutoshh # key: value --
   name: ashupod1
 spec:
   containers:
