@@ -169,4 +169,47 @@ node/aks-agentpool-25714751-vmss000000 tainted
 
 ```
 
+###  k8s advanced controller -- Daemonsets
+
+<img src="ds.png">
+
+## RBAC in k8s
+
+<img src="rbac.png">
+
+### roles and cluster 
+
+<img src="role1.png">
+
+### roles commands 
+
+```
+kubectl  api-resources  |   grep -i roles
+clusterroles                                   rbac.authorization.k8s.io/v1           false        ClusterRole
+roles                                          rbac.authorization.k8s.io/v1           true         Role
+fire@ashutoshhs-MacBook-Air ~ % 
+fire@ashutoshhs-MacBook-Air ~ % 
+fire@ashutoshhs-MacBook-Air ~ % kubectl  get  roles
+No resources found in ashu-space namespace.
+fire@ashutoshhs-MacBook-Air ~ % kubectl  get  roles -n kube-system
+NAME                                             CREATED AT
+extension-apiserver-authentication-reader        2022-02-09T03:18:46Z
+system::leader-locking-kube-controller-manager   2022-02-09T03:18:46Z
+system::leader-locking-kube-scheduler            2022-02-09T03:18:46Z
+system:controller:bootstrap-signer               2022-02-09T03:18:46Z
+system:controller:cloud-provider                 2022-02-09T03:18:46Z
+system:controller:token-cleaner                  2022-02-09T03:18:46Z
+tunnelfront-secret                               2022-02-09T03:19:20Z
+fire@ashutoshhs-MacBook-Air ~ % 
+fire@ashutoshhs-MacBook-Air ~ % 
+fire@ashutoshhs-MacBook-Air ~ % kubectl  get  clusterroles  
+NAME                                                                   CREATED AT
+admin                                                                  2022-02-09T03:18:43Z
+aks-service                                                            2022-02-09T03:19:15Z
+calico-kube-controllers                                                2022-02-09T03:21:04Z
+calico-node                                                            2022-02-09T03:21:04Z
+calico-typha                                                      
+
+```
+
 
