@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ashusvc112
+  name: ashusvc112 # name of service 
+spec:
+  ports:
+  - name: main
+    port: 83
+    protocol: TCP
+    targetPort: 81 
+  - name: sidecarconta
+    port: 80 # service port which can be anything 
+    protocol: TCP
+    targetPort: 80 # targetport is side one of my pod contai
+  selector: # pod finder using label 
+    run: datagen # label of pod 
+  type: ClusterIP # type of service internal to k8s 
+status:
+  loadBalancer: {}
