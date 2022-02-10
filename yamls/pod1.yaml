@@ -4,8 +4,13 @@ metadata:
  name: ashupod-123444 # name of pod 
  
 spec:
- nodeName: aks-agentpool-25714751-vmss000002 # static scheduling 
+ tolerations: # we are tolerating 
+ - key: x
+   operator: "Equal"
+   value: "hellopwc"
+   effect: "NoSchedule"
  containers:
  - image: alpine # image from docker hub 
    name: ashuc1 # name of container 
    command: ["sh","-c","ping localhost"] # process to run inside container 
+   # entrypoint ---- command 
