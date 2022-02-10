@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: nodepapp
+  name: nodepapp # name of deployment 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodepapp
+  strategy: {}
+  template: # will be used to create pods 
+    metadata:
+      creationTimestamp: null
+      labels: # label of pods 
+        app: nodepapp
+    spec:
+      imagePullSecrets: # calling secret 
+      - name: acrsec # name of secret 
+      containers:
+      - image: ashutoshh.azurecr.io/pwcnode:appv1 # image from ACR 
+        name: pwcnode
+        ports:
+        - containerPort: 3000
+        resources: {}
+status: {}
