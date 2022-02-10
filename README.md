@@ -129,4 +129,32 @@ fire@ashutoshhs-MacBook-Air ~ % kubectl  create  secret  docker-registry   acrse
 
 <img src="secretinfo.png">
 
+### app behaviour controll 
+
+<img src="liveness.png">
+
+### checking. app from service 
+
+```
+ kubectl  exec -it checkpod -- sh 
+/ # apk add curl 
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.15/main/x86_64/APKINDEX.tar.gz
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.15/community/x86_64/APKINDEX.tar.gz
+(1/5) Installing ca-certificates (20211220-r0)
+(2/5) Installing brotli-libs (1.0.9-r5)
+(3/5) Installing nghttp2-libs (1.46.0-r0)
+(4/5) Installing libcurl (7.80.0-r0)
+(5/5) Installing curl (7.80.0-r0)
+Executing busybox-1.34.1-r3.trigger
+Executing ca-certificates-20211220-r0.trigger
+OK: 8 MiB in 19 packages
+/ # curl  http://checksvc
+<!DOCTYPE html>
+
+
+```
+### app behavour control 
+
+[COntroll](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+
 
