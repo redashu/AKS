@@ -51,7 +51,7 @@ namespace "kubernetes-dashboard" deleted
 
 <img src="ingresswatch.png">
 
+## Service in k8s
 
+<img src="svcall.png">
 
-
-```
