@@ -157,4 +157,16 @@ OK: 8 MiB in 19 packages
 
 [COntroll](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 
+## Taints -- applied in Nodes 
+
+<img src="taints.png">
+
+### tainting to Node 
+
+```
+kubectl  taint  node  aks-agentpool-25714751-vmss000000   x=hellopwc:NoSchedule 
+node/aks-agentpool-25714751-vmss000000 tainted
+
+```
+
 
