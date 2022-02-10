@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: d11
+  name: d11
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: d11
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: d11
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        ports:
+        - containerPort: 80
+        readinessProbe: # it will update k8s service not to send traffic here
+         httpGet:
+          path: /light.html
+          port: 80 
+         initialDelaySeconds: 10
+         periodSeconds: 5
+         failureThreshold: 1 
+        livenessProbe: # on behalf of some condition kubelet will restart contaier
+         httpGet: # command / script based checking 
+          path: /index.html
+          port: 80 
+         initialDelaySeconds: 10 
+         periodSeconds: 10
+        resources: {}
+status: {}
