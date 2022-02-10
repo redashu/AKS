@@ -49,7 +49,7 @@ namespace "kubernetes-dashboard" deleted
 
 ### Ingress watch 
 
-<img src="ingressdep.png">
+<img src="ingresswatch.png">
 
 
 
