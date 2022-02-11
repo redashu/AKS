@@ -86,8 +86,85 @@ pvc-8d8f8904-192d-4ba5-87ea-12cd70e3bf94   5Gi        RWO            Delete     
  1086  kubectl  get  all
  1087  kubectl  get  all
  1088  kubectl apply -f  namespaceback.yaml
+ 
+```
+
+### SSL based deployment model 
+
+<img src="ssl.png">
+
+### app vs network based ssl 
+
+<img src="appssl.png">
+
+### creating self sign certificate 
 
 ```
+ openssl  req -x509 -newkey rsa:4096  -keyout  privatekey.pem -out cert.pem -days 365       -nodes 
+Generating a 4096 bit RSA private key
+....................................................++
+.........................................++
+writing new private key to 'privatekey.pem'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) []:IN
+State or Province Name (full name) []:RAJ
+Locality Name (eg, city) []:JAIPUR
+Organization Name (eg, company) []:PWC
+Organizational Unit Name (eg, section) []:TECH
+Common Name (eg, fully qualified host name) []:securepwc.ashutoshh.in
+Email Address []:
+fire@ashutoshhs-MacBook-Air Desktop % mkdir  certs
+fire@ashutoshhs-MacBook-Air Desktop % mv privatekey.pem certs 
+fire@ashutoshhs-MacBook-Air Desktop % mv cert.pem certs 
+fire@ashutoshhs-MacBook-Air Desktop % cd  certs 
+fire@ashutoshhs-MacBook-Air certs % ls
+cert.pem	privatekey.pem
+
+```
+
+### RBAC understanding --
+
+<img src="rbac.png">
+
+### namespace reality 
+
+```
+ kubectl  create   namespace   restricted-space  
+namespace/restricted-space created
+fire@ashutoshhs-MacBook-Air certs % kubectl  get ns
+NAME                   STATUS   AGE
+ashu-space             Active   2d5h
+ashuwebapp             Active   4h13m
+calico-system          Active   2d6h
+default                Active   2d6h
+ingress-nginx          Active   28h
+kube-node-lease        Active   2d6h
+kube-public            Active   2d6h
+kube-system            Active   2d6h
+kubernetes-dashboard   Active   27h
+restricted-space       Active   35s
+securens               Active   45h
+sumair-space           Active   28h
+tigera-operator        Active   2d6h
+fire@ashutoshhs-MacBook-Air certs % kubectl  get  sa  -n  restricted-space
+NAME      SECRETS   AGE
+default   1         59s
+fire@ashutoshhs-MacBook-Air certs % kubectl  get  secret  -n  restricted-space
+NAME                  TYPE                                  DATA   AGE
+default-token-vgvx2   kubernetes.io/service-account-token   3      88s
+fire@ashutoshhs-MacBook-Air certs % kubectl  get  cm   -n  restricted-space
+NAME               DATA   AGE
+kube-root-ca.crt   1      100s
+
+```
+
 
 
 
