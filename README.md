@@ -165,6 +165,26 @@ kube-root-ca.crt   1      100s
 
 ```
 
+### kubectl with custom  namespace --
+
+```
+ kubectl  get  nodes                      
+Error from server (Forbidden): nodes is forbidden: User "system:serviceaccount:restricted-space:test" cannot list resource "nodes" in API group "" at the cluster scope
+fire@ashutoshhs-MacBook-Air ~ % 
+fire@ashutoshhs-MacBook-Air ~ % 
+fire@ashutoshhs-MacBook-Air ~ % kubectl  get  nodes --kubeconfig  Desktop/aksconfig 
+NAME                                STATUS   ROLES   AGE    VERSION
+aks-agentpool-25714751-vmss000000   Ready    agent   2d7h   v1.21.7
+aks-agentpool-25714751-vmss000001   Ready    agent   2d7h   v1.21.7
+aks-agentpool-25714751-vmss000002   Ready    agent   2d7h   v1.21.7
+fire@ashutoshhs-MacBook-Air ~ % kubectl  get  nodes --kubeconfig  Desktop/myconfig 
+Error from server (Forbidden): nodes is forbidden: User "system:s
+```
+
+
+## CI | CD 
+
+<img src="cicd.png">
 
 
 
