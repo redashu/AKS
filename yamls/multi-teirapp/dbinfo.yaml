@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  dburl: ashuapp-db
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: appinfo
+  namespace: ashuwebapp

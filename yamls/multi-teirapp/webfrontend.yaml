@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: webapp
+  name: webapp # name of deployment 
+  namespace: ashuwebapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  strategy: {}
+  template: # to create pods 
+    metadata:
+      creationTimestamp: null
+      labels: # label of pod 
+        app: webapp
+    spec:
+      containers:
+      - image: wordpress:4.8-apache
+        name: wordpress
+        ports:
+        - containerPort: 80
+        env: # to set / value for web app
+        - name: WORDPRESS_DB_HOST
+          valueFrom: # calling from CM 
+           configMapKeyRef:
+            name: appinfo # name of CM 
+            key: dburl # key of CM 
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom: # calling something 
+           secretKeyRef: # secret 
+            name: dbsec # name of secret 
+            key: root_pass # key of secret
+        resources: {}
+status: {}
