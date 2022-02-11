@@ -77,3 +77,17 @@ pvc-8d8f8904-192d-4ba5-87ea-12cd70e3bf94   5Gi        RWO            Delete     
 
 ```
 
+### namespace -- backup 
+
+```
+83  kubectl  get  all   -o yaml  >namespaceback.yaml 
+ 1084  kubectl delete  all --all
+ 1085  kubectl  get  all
+ 1086  kubectl  get  all
+ 1087  kubectl  get  all
+ 1088  kubectl apply -f  namespaceback.yaml
+
+```
+
+
+
