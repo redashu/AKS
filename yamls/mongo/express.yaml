@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: express
+  name: express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: express
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: express
+    spec:
+      containers:
+      - image: mongo-express
+        name: mongo-express
+        env:
+        - name: ME_CONFIG_MONGODB_SERVER
+          valueFrom:
+           configMapKeyRef:
+            name: urldb
+            key: dburl
+        - name: ME_CONFIG_BASICAUTH_USERNAME
+          valueFrom:
+           secretKeyRef:
+            name: dbmongo
+            key: u
+        - name: ME_CONFIG_BASICAUTH_PASSWORD
+          valueFrom:
+           secretKeyRef:
+            name: dbmongo
+            key: p
+
+        resources: {}
+status: {}

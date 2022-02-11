@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: dbnosql
+  name: dbnosql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dbnosql
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: dbnosql
+    spec:
+      volumes:
+      - name: volume1
+        persistentVolumeClaim:
+         claimName: azure-managed-disk
+      containers:
+      - image: mongo
+        name: mongo
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: volume1
+          mountPath: /data/db
+        env: 
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+           secretKeyRef:
+            name: dbmongo
+            key: u
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+           secretKeyRef:
+            name: dbmongo
+            key: p
+        resources: {}
+status: {}

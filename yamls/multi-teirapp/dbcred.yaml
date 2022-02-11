@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  root_pass: UHdjRGJAMDk4
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: dbsec
+  namespace: ashuwebapp

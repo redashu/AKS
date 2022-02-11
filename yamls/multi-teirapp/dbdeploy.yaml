@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ashuapp_db
+  name: ashuapp-db # name of deployment 
+  namespace: ashuwebapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ashuapp_db
+  strategy: {}
+  template: # to create pod 
+    metadata:
+      creationTimestamp: null
+      labels: # label of pod 
+        app: ashuapp_db
+    spec:
+      volumes: # to create internal volume 
+      - name: ashudbvol
+        persistentVolumeClaim: # source of volume 
+         claimName: azure-managed-disk1 # will call pvc --sc --pv --az disk 
+      containers:
+      - image: mysql:5.6
+        name: mysql
+        ports:
+        - containerPort: 3306
+        volumeMounts: # mounting volume inside db container 
+        - name: ashudbvol
+          mountPath: /var/lib/mysql/ # default mysql Db storage location 
+        env: # to call / create env variable from docker image 
+        - name: MYSQL_ROOT_PASSWORD 
+          valueFrom: # calling something 
+           secretKeyRef: # secret 
+            name: dbsec # name of secret 
+            key: root_pass # key of secret 
+        resources: {}
+status: {}

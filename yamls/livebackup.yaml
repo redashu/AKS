@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: d11
+  name: d11
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: d11
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: d11
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        ports:
+        - containerPort: 80
+        livenessProbe: # on behalf of some condition kubelet will restart contaier
+         exec: # command / script based checking 
+          command: 
+          - cat 
+          - /usr/share/nginx/html/index.html 
+         initialDelaySeconds: 10 
+         periodSeconds: 5 
+        resources: {}
+status: {}

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: ashupod-123444 # name of pod 
+ 
+spec:
+ affinity:
+  nodeAffinity:
+   requiredDuringSchedulingIgnoredDuringExecution:  # this needs to be matched
+    nodeSelectorTerms:
+    - matchExpressions:
+      - key: hard_disk
+        operator: In 
+        values:
+        - ssd      
+ containers:
+ - image: alpine # image from docker hub 
+   name: ashuc1 # name of container 
+   command: ["sh","-c","ping localhost"] # process to run inside container 
+   # entrypoint ---- command 

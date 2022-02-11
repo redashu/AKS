@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ponping
+  
+spec: # appinfo like container / storage / schedular 
+  containers:
+  - image: alpine
+    name: ponping
+    command: ["sh","-c","ping localhost"]
